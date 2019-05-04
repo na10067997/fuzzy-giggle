@@ -37,6 +37,7 @@ public class ImageClickExample extends JFrame implements ActionListener
     	
     	c.setLayout(new FlowLayout());
     	
+	c.setBackground(Color.GRAY);
          
     	
          btn1 = new JButton();
