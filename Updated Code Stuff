@@ -21,10 +21,12 @@ public class ImageClickExample extends JFrame implements ActionListener {
 	private JLabel btn4;
 	private JButton btn5;
 	private JButton btn6;
+	private JLabel btn7;
 
 	private boolean hasHappened = false;
 	private boolean hasHappened2 = false;
 	private boolean hasHappened3 = false;
+	private boolean hasHappened4 = false;
 	private Container c;
 	private int price = 20;
 	private int level = 1;
@@ -76,7 +78,11 @@ public class ImageClickExample extends JFrame implements ActionListener {
 			}
 
 		}
-		getHands(e);
+
+		if (!hasHappened4) {
+			getHands(e);
+		}	
+		getGloves(e);
 	}
 
 	private void getHands(ActionEvent e) {
@@ -102,6 +108,25 @@ public class ImageClickExample extends JFrame implements ActionListener {
 				btn5.addActionListener(this);
 				c.add(btn5);
 
+			}
+		}
+	}
+
+	private void getGloves(ActionEvent e) {
+		if (e.getActionCommand().equals("Unlock Boxing Gloves : 300")) {
+			if (count >= 300) {
+				hasHappened4 = true;
+				count -= 300;
+				btn3.setVisible(false);
+				btn4.setVisible(false);
+				btn5.setVisible(false);
+
+				btn6 = new JButton("UPGRADE GLOVES : " + price * 2);
+				btn6.addActionListener(this);
+				c.add(btn6);
+
+				btn7 = new JLabel("Glove Level : " + level2);
+				c.add(btn7);
 			}
 		}
 	}
