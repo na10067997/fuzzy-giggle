@@ -81,7 +81,7 @@ public class ImageClickExample extends JFrame implements ActionListener {
 
 		if (!hasHappened4) {
 			getHands(e);
-		}	
+		}
 		getGloves(e);
 	}
 
@@ -120,9 +120,10 @@ public class ImageClickExample extends JFrame implements ActionListener {
 				btn3.setVisible(false);
 				btn4.setVisible(false);
 				btn5.setVisible(false);
-
-				btn6 = new JButton("UPGRADE GLOVES : " + price * 2);
-				btn6.addActionListener(this);
+				count -= price;
+				level2++;
+				price += 50;
+				btn6.setText("UPGRADE HANDS : " + price);
 				c.add(btn6);
 
 				btn7 = new JLabel("Glove Level : " + level2);
