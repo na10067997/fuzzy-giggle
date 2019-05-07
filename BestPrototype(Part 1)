@@ -1,0 +1,107 @@
+
+
+import javax.swing.*;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.event.*;
+
+@SuppressWarnings("serial")
+public class Upgrades extends ClickerFace implements ActionListener
+{
+	private JButton btn;
+	private JLabel lb;
+	private String string;
+	private int price;
+	private static int count;
+	private int level = 1;
+	private boolean hasHappened = false;
+	private boolean hasHappened2 = false;
+	private Container c;
+	
+	
+	public Upgrades(String string, int price, Container c,int co)
+	{	
+		btn = new JButton();
+		lb = new JLabel();
+		btn.setText("UPGRADE " + string + " : " + price);
+		btn.addActionListener(this);
+		c.add(btn);
+		this.string = string;
+		this.price = price;
+		count = co;
+		hasHappened = false;
+		hasHappened2 = false;
+		this.c = c;
+		level = 1;
+	}
+	public Upgrades(int c)
+	{
+		count = c;
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getActionCommand().equals("UPGRADE " + string + " : " + price))
+		{
+			
+			if(count >= price)
+			{
+				
+				ClickerFace.subFromCount(price);
+				ClickerFace.addLevel();
+				count -= price;
+				price += (price/3);
+				btn.setText("UPGRADE " + string + " : " + price);
+				level++;
+			}
+			if(hasHappened == false)
+			{
+			lb.setText(string+ " LEVEL : " + level);
+			c.add(lb);
+			hasHappened = true;
+			}
+			lb.setText(string+ " LEVEL : " + level);
+			if(ClickerFace.getLevel() == 10 && hasHappened2 == false)
+			{
+				Upgrades btn = new Upgrades("BOXING GLOVES",price*2,c,count);
+				hasHappened2 = true;
+				this.btn.setVisible(false);
+				lb.setVisible(false);
+				ClickerFace.setMult(2);
+			}
+			else if(ClickerFace.getLevel() == 19 && hasHappened2 == false)
+			{
+				Upgrades btn = new Upgrades("BRASS KNUCKLES",price*2,c,count);
+				hasHappened2 = true;
+				this.btn.setVisible(false);
+				lb.setVisible(false);
+				ClickerFace.setMult(3);
+			}
+			else if(ClickerFace.getLevel() == 29 && hasHappened2 == false)
+			{
+				Upgrades btn = new Upgrades("BASEBALL BAT",price*2,c,count);
+				hasHappened2 = true;
+				this.btn.setVisible(false);
+				lb.setVisible(false);
+				ClickerFace.setMult(4);
+			}
+			else if(ClickerFace.getLevel() == 39 && hasHappened2 == false)
+			{
+				Upgrades btn = new Upgrades("DAGGER",price*2,c,count);
+				hasHappened2 = true;
+				this.btn.setVisible(false);
+				lb.setVisible(false);
+				ClickerFace.setMult(5);
+			}
+		}	
+	}
+	
+	public static void setThisCount(int c)
+	{
+		count = c;
+	}		
+}
+
