@@ -14,7 +14,8 @@ public class ClickerFace extends JFrame implements ActionListener
 {
     private static int count = 0;
     private JButton btn1;
-    private JLabel lb1;
+    private static JLabel lbTemp;
+    private JLabel lb1 = lbTemp;
     private Container c;
     private static int level = 1;
     private boolean hasHappened = false;
@@ -66,12 +67,12 @@ public class ClickerFace extends JFrame implements ActionListener
 		{
 			count += (level*mult);
 			lb1.setText(""+count);
-			;
+			
 			
 			Upgrades.setThisCount(count);
 			if(count == 20 && hasHappened == false)
 			{
-				Upgrades btn = new Upgrades("HANDS",20,c,count);
+				Upgrades btn = new Upgrades("HANDS",20,c,count, lb1);
 				hasHappened = true;
 			}
 		}
@@ -94,8 +95,6 @@ public class ClickerFace extends JFrame implements ActionListener
 	{
 		mult = num;
 	}
-	
-	
 	
 			
 	
