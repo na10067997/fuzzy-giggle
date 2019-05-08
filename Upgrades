@@ -72,53 +72,25 @@ public class Upgrades extends ClickerFace implements ActionListener
 				lb.setText(string + " LEVEL : " + level);
 				if (ClickerFace.getLevel() == 10 && hasHappened2 == false)
 				{
-					string = "BOXING GLOVES";
-					temp.setText("UNLOCK " + string + " : " + (price + 200));
-					temp.addActionListener(this);
-					c.add(temp);
+					unlockGloves();
 				} else if (ClickerFace.getLevel() == 19 && hasHappened2 == false)
 				{
-
-					string = "BRASS KNUCKLES";
-					temp.setText("UNLOCK " + string + " : " + (price + 200));
-					temp.addActionListener(this);
-					c.add(temp);
-
+					unlockKnuckles();
 				} else if (ClickerFace.getLevel() == 29 && hasHappened2 == false)
 				{
-
-					string = "BASEBALL BAT";
-					temp.setText("UNLOCK " + string + " : " + (price + 200));
-					temp.addActionListener(this);
-					c.add(temp);
-
+					unlockBat();
 				} else if (ClickerFace.getLevel() == 38 && hasHappened2 == false)
 				{
-					string = "DAGGER";
-					temp.setText("UNLOCK " + string + " : " + (price + 200));
-					temp.addActionListener(this);
-					c.add(temp);
-
+					unlockDagger();
 				} else if (ClickerFace.getLevel() == 47 && hasHappened2 == false)
 				{
-					hasHappened2 = true;
-					this.btn.setVisible(false);
-					lb.setVisible(false);
-					JLabel youWin = new JLabel("YOU WIN");
-					youWin.setFont(new Font("Comic Sans MS", Font.BOLD, 95));
-					c.add(youWin);
-
+					win();
 				}
 			}
 		}
 		if (e.getActionCommand().equals("UNLOCK " + string + " : " + (price + 200)))
 		{
-			if (count >= (price + 200))
-			{
-
-				count -= (price + 200);
-				getButton(string);
-			}
+			upgrade();
 		}
 	}
 
@@ -162,6 +134,48 @@ public class Upgrades extends ClickerFace implements ActionListener
 		ClickerFace.setMult(20);
 	}
 
+	private void unlockGloves()
+	{
+		string = "BOXING GLOVES";
+		temp.setText("UNLOCK " + string + " : " + (price + 200));
+		temp.addActionListener(this);
+		c.add(temp);
+	}
+
+	private void unlockKnuckles()
+	{
+		string = "BRASS KNUCKLES";
+		temp.setText("UNLOCK " + string + " : " + (price + 200));
+		temp.addActionListener(this);
+		c.add(temp);
+	}
+
+	private void unlockBat()
+	{
+		string = "BASEBALL BAT";
+		temp.setText("UNLOCK " + string + " : " + (price + 200));
+		temp.addActionListener(this);
+		c.add(temp);
+	}
+
+	private void unlockDagger()
+	{
+		string = "DAGGER";
+		temp.setText("UNLOCK " + string + " : " + (price + 200));
+		temp.addActionListener(this);
+		c.add(temp);
+	}
+
+	private void win()
+	{
+		hasHappened2 = true;
+		this.btn.setVisible(false);
+		lb.setVisible(false);
+		JLabel youWin = new JLabel("YOU WIN");
+		youWin.setFont(new Font("Comic Sans MS", Font.BOLD, 95));
+		c.add(youWin);
+	}
+
 	public static void setThisCount(int c)
 	{
 		count = c;
@@ -182,6 +196,15 @@ public class Upgrades extends ClickerFace implements ActionListener
 		{
 			getDagger();
 		}
+	}
 
+	private void upgrade()
+	{
+		if (count >= (price + 200))
+		{
+
+			count -= (price + 200);
+			getButton(string);
+		}
 	}
 }
