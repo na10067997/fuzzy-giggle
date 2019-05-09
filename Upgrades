@@ -21,12 +21,14 @@ public class Upgrades extends ClickerFace implements ActionListener
 	private boolean hasHappened = false;
 	private boolean hasHappened2 = false;
 	private Container c;
+	private JLabel gif;
+	private JButton stites;
 
-	public Upgrades(String string, int price, Container c, int co, JLabel jb)
+	public Upgrades(String string, int price, Container c, int co, JLabel jb, JLabel gif, JButton stites)
 	{
 		btn = new JButton();
 		lb = new JLabel();
-		btn.setText("UPGRADE " + string + " : " + price);
+		btn.setText("UPGRADE " + string + " : $" + price);
 		btn.addActionListener(this);
 		c.add(btn);
 		this.string = string;
@@ -37,17 +39,14 @@ public class Upgrades extends ClickerFace implements ActionListener
 		this.c = c;
 		level = 1;
 		this.jb = jb;
-	}
-
-	public Upgrades(int c)
-	{
-		count = c;
+		this.gif = gif;
+		this.stites = stites;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getActionCommand().equals("UPGRADE " + string + " : " + price))
+		if (e.getActionCommand().equals("UPGRADE " + string + " : $" + price))
 		{
 
 			if (count >= price)
@@ -56,11 +55,11 @@ public class Upgrades extends ClickerFace implements ActionListener
 				level++;
 
 				ClickerFace.subFromCount(price);
-				price += (price / 3);
-				jb.setText("" + count);
+				price += (price / 4);
+				jb.setText("$" + count);
 				ClickerFace.addLevel();
 
-				btn.setText("UPGRADE " + string + " : " + price);
+				btn.setText("UPGRADE " + string + " : $" + price);
 
 				if (hasHappened == false)
 				{
@@ -71,97 +70,86 @@ public class Upgrades extends ClickerFace implements ActionListener
 
 				lb.setText(string + " LEVEL : " + level);
 				if (ClickerFace.getLevel() == 10 && hasHappened2 == false)
-				{
 					unlockGloves();
-				} else if (ClickerFace.getLevel() == 19 && hasHappened2 == false)
-				{
+				else if (ClickerFace.getLevel() == 19 && hasHappened2 == false)
 					unlockKnuckles();
-				} else if (ClickerFace.getLevel() == 29 && hasHappened2 == false)
-				{
-					unlockBat();
-				} else if (ClickerFace.getLevel() == 38 && hasHappened2 == false)
-				{
-					unlockDagger();
-				} else if (ClickerFace.getLevel() == 47 && hasHappened2 == false)
-				{
+				else if (ClickerFace.getLevel() == 28 && hasHappened2 == false)
+					unlockClaws();
+				else if (ClickerFace.getLevel() == 37 && hasHappened2 == false)
 					win();
-				}
+
 			}
 		}
-		if (e.getActionCommand().equals("UNLOCK " + string + " : " + (price + 200)))
+		if (e.getActionCommand().equals("UNLOCK " + string + " : $" + (price + 200)))
 		{
-			upgrade();
+			unlock();
 		}
 	}
 
 	private void getGloves()
 	{
-		Upgrades btn = new Upgrades("BOXING GLOVES", price * 2, c, count, jb);
+		Upgrades btn = new Upgrades("BOXING GLOVES", price * 2, c, count, jb, gif, stites);
 		hasHappened2 = true;
+		gif.setIcon(new ImageIcon("hand2.gif"));
 		this.btn.setVisible(false);
 		lb.setVisible(false);
 		temp.setVisible(false);
-		ClickerFace.setMult(2);
+		ClickerFace.setMult(5);
 	}
 
 	private void getKnuckles()
 	{
-		Upgrades btn = new Upgrades("BRASS KNUCKLES", price * 2, c, count, jb);
+		Upgrades btn = new Upgrades("BRASS KNUCKLES", price * 2, c, count, jb, gif, stites);
 		hasHappened2 = true;
-		this.btn.setVisible(false);
-		lb.setVisible(false);
-		temp.setVisible(false);
-		ClickerFace.setMult(6);
-	}
-
-	private void getBat()
-	{
-		Upgrades btn = new Upgrades("BASEBALL BAT", price * 2, c, count, jb);
-		hasHappened2 = true;
-		this.btn.setVisible(false);
-		lb.setVisible(false);
-		temp.setVisible(false);
-		ClickerFace.setMult(14);
-	}
-
-	private void getDagger()
-	{
-		Upgrades btn = new Upgrades("DAGGER", price * 2, c, count, jb);
-		hasHappened2 = true;
+		gif.setIcon(new ImageIcon("hand3.gif"));
 		this.btn.setVisible(false);
 		lb.setVisible(false);
 		temp.setVisible(false);
 		ClickerFace.setMult(20);
 	}
 
+	private void getClaws()
+	{
+		Upgrades btn = new Upgrades("WOLVERINE CLAWS", price * 2, c, count, jb, gif, stites);
+		hasHappened2 = true;
+		gif.setIcon(new ImageIcon("hand4.gif"));
+		this.btn.setVisible(false);
+		lb.setVisible(false);
+		temp.setVisible(false);
+		ClickerFace.setMult(100);
+	}
+
+	private void unlock()
+	{
+		count -= (price + 200);
+		ClickerFace.subFromCount(price + 200);
+		jb.setText("$" + count);
+		getButton(string);
+	}
+
 	private void unlockGloves()
 	{
+		btn.setText(string + " MAX LEVEL");
 		string = "BOXING GLOVES";
-		temp.setText("UNLOCK " + string + " : " + (price + 200));
+		temp.setText("UNLOCK " + string + " : $" + (price + 200));
 		temp.addActionListener(this);
 		c.add(temp);
 	}
 
 	private void unlockKnuckles()
 	{
+		btn.setText(string + " MAX LEVEL");
 		string = "BRASS KNUCKLES";
-		temp.setText("UNLOCK " + string + " : " + (price + 200));
+		temp.setText("UNLOCK " + string + " : $" + (price + 200));
 		temp.addActionListener(this);
 		c.add(temp);
 	}
 
-	private void unlockBat()
+	private void unlockClaws()
 	{
-		string = "BASEBALL BAT";
-		temp.setText("UNLOCK " + string + " : " + (price + 200));
-		temp.addActionListener(this);
-		c.add(temp);
-	}
-
-	private void unlockDagger()
-	{
-		string = "DAGGER";
-		temp.setText("UNLOCK " + string + " : " + (price + 200));
+		btn.setText(string + " MAX LEVEL");
+		string = "WOLVERINE CLAWS";
+		temp.setText("UNLOCK " + string + " : $" + (price + 200));
 		temp.addActionListener(this);
 		c.add(temp);
 	}
@@ -171,9 +159,14 @@ public class Upgrades extends ClickerFace implements ActionListener
 		hasHappened2 = true;
 		this.btn.setVisible(false);
 		lb.setVisible(false);
-		JLabel youWin = new JLabel("YOU WIN");
-		youWin.setFont(new Font("Comic Sans MS", Font.BOLD, 95));
-		c.add(youWin);
+		gif.setVisible(false);
+		jb.setVisible(false);
+		JLabel endGame = new JLabel("GG YOU WIN!!!");
+
+		stites.setIcon(new ImageIcon("test2.png"));
+		endGame.setFont(new Font("Comic Sans MS", Font.BOLD, 55));
+		c.add(endGame);
+
 	}
 
 	public static void setThisCount(int c)
@@ -189,22 +182,10 @@ public class Upgrades extends ClickerFace implements ActionListener
 		} else if (s.equals("BRASS KNUCKLES"))
 		{
 			getKnuckles();
-		} else if (s.equals("BASEBALL BAT"))
+		} else if (s.equals("WOLVERINE CLAWS"))
 		{
-			getBat();
-		} else if (s.equals("DAGGER"))
-		{
-			getDagger();
+			getClaws();
 		}
-	}
 
-	private void upgrade()
-	{
-		if (count >= (price + 200))
-		{
-
-			count -= (price + 200);
-			getButton(string);
-		}
 	}
 }
