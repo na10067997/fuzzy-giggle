@@ -1,0 +1,74 @@
+package helloworld;
+
+import java.awt.Button;
+import java.awt.Component;
+import java.awt.GraphicsConfiguration;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class Battleship implements ActionListener
+{
+
+	private static GraphicsConfiguration gc;
+	private JButton[][] buttons = new JButton[10][10];
+	private boolean[][] grid = new boolean[10][10];
+	JFrame frame = new JFrame(gc);
+
+	public Battleship()
+	{
+		frame.setLayout(new GridLayout(10, 10));
+		frame.setTitle("Battleship");
+		frame.setSize(600, 400);
+		frame.setVisible(true);
+		setGrids();
+
+	}
+
+	public void setGrids()
+	{
+
+		int counter = 0;
+
+		for (int i = 0; i < grid.length; i++)
+		{
+			for (int o = 0; o < grid[i].length; o++)
+			{
+
+				counter++;
+
+				int ships = (int) Math.random() * 85 + 16;
+
+				if (ships <= 16)
+					grid[i][o] = true;
+
+				else
+					grid[i][o] = false;
+				JButton btn = new JButton(Integer.toString(o + 1));
+				btn.addActionListener(this);
+				frame.add(btn);
+
+			}
+		}
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getActionCommand().equals(e.getActionCommand()))
+		{
+		}
+
+	}
+
+	public static void main(String args[])
+	{
+		Battleship test = new Battleship();
+	}
+
+}
