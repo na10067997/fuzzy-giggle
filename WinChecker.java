@@ -1,3 +1,6 @@
+import java.awt.Color;
+
+import javax.swing.JButton;
 
 public class WinChecker
 {
@@ -7,6 +10,8 @@ public class WinChecker
 	private final int SIZE = 3;
 	protected GameBoard[][] largeBoard = new GameBoard[SIZE][SIZE];
 	private static GameBoard active;
+	private static JButton[][] labelArray = GameRunner.getLabelArray();
+	
 
 	public WinChecker()
 	{
@@ -43,7 +48,14 @@ public class WinChecker
 			for (int j = 0; j < SIZE; j++)
 			{
 				consolidated.board[i][j] = largeBoard[i][j].getWinner();
-
+				if(largeBoard[i][j].getWinner() != null && largeBoard[i][j].getWinner().getName().equals("X"))
+				{
+					labelArray[i][j].setText("X");
+				}
+				else if(largeBoard[i][j].getWinner() != null && largeBoard[i][j].getWinner().getName().equals("O"))
+				{
+					labelArray[i][j].setText("O");
+				}
 			}
 		}
 		return consolidated.getWinner();

@@ -6,7 +6,9 @@ public class GameRunner
 
 	private static final int SIZE = 3;
 	public static JFrame frame = new JFrame();
+	public static JFrame frame2 = new JFrame();
 	public static JButton[][] buttonArray = new JButton[SIZE * SIZE][SIZE * SIZE];
+	public static JButton[][] labelArray = new JButton[SIZE][SIZE];
 	public static WinChecker game = new WinChecker();
 	public static JFrame winFrame = new JFrame();
 
@@ -21,10 +23,13 @@ public class GameRunner
 		winFrame.setBackground(Color.LIGHT_GRAY);
 		winFrame.setLayout(new FlowLayout());
 		frame.setSize(600, 600);
+		frame2.setSize(200,200);
 		frame.setLayout(new GridLayout(SIZE * SIZE, SIZE * SIZE));
+		frame2.setLayout(new GridLayout(SIZE, SIZE));
+		frame2.setBackground(Color.LIGHT_GRAY);
 		create();
 		frame.setVisible(true);
-
+		frame2.setVisible(true);
 		while (game.getWinner1() == null)
 		{
 		}
@@ -35,6 +40,7 @@ public class GameRunner
 		winLB2.setFont(new Font("Comic Sans", Font.BOLD, 30));
 		winFrame.add(winLB2);
 		frame.setVisible(false);
+		frame2.setVisible(false);
 		winFrame.setVisible(true);
 		
 	}
@@ -42,6 +48,7 @@ public class GameRunner
 	public static void create()
 	{
 		JButton button;
+		JButton label;
 		boolean midRow;
 		boolean midColumn;
 		for (int i = 0; i < SIZE * SIZE; i++)
@@ -60,6 +67,20 @@ public class GameRunner
 					button.setBackground(Color.LIGHT_GRAY);
 				}
 				button.addActionListener(new ButtonListener());
+			}
+		}
+		for (int i = 0; i < SIZE; i++)
+		{
+			for (int j = 0; j < SIZE; j++)
+			{
+				label = new JButton();
+				labelArray[i][j] = label;
+				
+				label.setBackground(Color.WHITE);
+				label.setFont(new Font("Comic Sans", Font.BOLD, 30));
+				
+				frame2.add("",label);
+				
 			}
 		}
 	}
@@ -95,6 +116,10 @@ public class GameRunner
 				currentPlayer = p1;
 			}
 		}
+	}
+	public static JButton[][] getLabelArray()
+	{
+		return labelArray;
 	}
 
 }
